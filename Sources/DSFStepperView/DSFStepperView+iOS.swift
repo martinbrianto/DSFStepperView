@@ -34,7 +34,7 @@ import Combine
 public class DSFStepperView: UIView {
 
 	// The width of the hit target
-	static let hitTargetWidth: CGFloat = 50
+	static let hitTargetWidth: CGFloat = 25
 
 	static let borderStrokeDefault = UIColor.lightGray.withAlphaComponent(0.4)
 	static let borderFillDefault = UIColor.lightGray.withAlphaComponent(0.2)
@@ -316,7 +316,7 @@ public class DSFStepperView: UIView {
 
 		self.minusButton.isAccessibilityElement = true
 		self.minusButton.accessibilityLabel = "Decrement stepper"
-		self.minusButton.setImage(UIImage(systemName: "minus"), for: .normal)
+		self.minusButton.setImage(UIImage(systemName: "minus.circle"), for: .normal)
 		self.minusButton.tintColor = self.editField.textColor
 		self.minusButton.actionBlock = { [weak self] in
 			self?.performDecrement()
@@ -325,7 +325,7 @@ public class DSFStepperView: UIView {
 		self.editField.textAlignment = .center
 		self.editField.delegate = self
 
-		self.plusButton.setImage(UIImage(systemName: "plus"), for: .normal)
+		self.plusButton.setImage(UIImage(systemName: "plus.circle"), for: .normal)
 		self.plusButton.isAccessibilityElement = true
 		self.plusButton.accessibilityLabel = "Increment stepper"
 		self.plusButton.tintColor = self.editField.textColor
@@ -426,21 +426,19 @@ private extension DSFStepperView {
 
 		self.plusButton.isEnabled = canIncrease
 		self.plusButton.isHidden = !self.isEnabled
-		self.plusButton.tintColor = textColor.stateColor(canIncrease)
+        self.plusButton.tintColor = UIColor(named: "Main")
 
 		self.minusButton.isEnabled = canDecrease
 		self.minusButton.isHidden = !self.isEnabled
-		self.minusButton.tintColor = textColor.stateColor(canDecrease)
+		self.minusButton.tintColor = UIColor(named: "Main")
 
 		self.editField.isEnabled = self.isEnabled
 
 		// Fill color
-		let fc = self.borderBackground ?? DSFStepperView.borderFillDefault
-		self.layer.backgroundColor = fc.stateColor(self.isEnabled).cgColor
+		self.layer.backgroundColor = UIColor.clear.cgColor
 
 		// Border color
-		let bc = self.borderColor ?? DSFStepperView.borderStrokeDefault
-		self.layer.borderColor = bc.stateColor(self.isEnabled).cgColor
+		self.layer.borderColor = UIColor.clear.cgColor
 
 		// Indicator color
 		self.indicatorLayer.backgroundColor = self.indicatorColor?.stateColor(self.isEnabled).cgColor ?? nil
